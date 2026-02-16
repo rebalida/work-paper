@@ -289,11 +289,18 @@
                                                 </div>
 
                                                 <div class="md:col-span-2">
-                                                    <label class="block text-sm font-medium text-gray-700 mb-1">Upload Receipt (Optional)</label>
-                                                    <input type="file" name="receipt" accept=".pdf,.jpg,.jpeg,.png" class="w-full">
+                                                    <label class="block text-sm font-medium text-gray-700 mb-1">Receipt</label>
                                                     @if($expense->hasMedia('receipts'))
-                                                        <p class="text-xs text-gray-500 mt-1">Current: {{ $expense->getFirstMedia('receipts')->file_name }}</p>
+                                                        <div class="mb-2 p-2 bg-gray-50 rounded border">
+                                                            <p class="text-xs text-gray-600 mb-2">Current: {{ $expense->getFirstMedia('receipts')->file_name }}</p>
+                                                            <label class="inline-flex items-center">
+                                                                <input type="checkbox" name="remove_receipt" value="1" class="rounded border-gray-300">
+                                                                <span class="ml-2 text-sm text-red-600">Remove current receipt</span>
+                                                            </label>
+                                                        </div>
                                                     @endif
+                                                    <input type="file" name="receipt" accept=".pdf,.jpg,.jpeg,.png" class="w-full">
+                                                    <p class="text-xs text-gray-500 mt-1">Upload new file to replace existing</p>
                                                 </div>
 
                                                 <div class="md:col-span-2">

@@ -182,6 +182,11 @@ class WorkingPaperDashboard extends Controller
 
         $income->update($validated);
 
+        // Handle file removal/replacement
+        if ($request->has('remove_invoice')) {
+            $income->clearMediaCollection('invoices');
+        }
+
         if ($request->hasFile('invoice')) {
             $income->clearMediaCollection('invoices');
             $income->addMedia($request->file('invoice'))->toMediaCollection('invoices');
@@ -275,6 +280,11 @@ class WorkingPaperDashboard extends Controller
             return back()->withErrors(['gst' => 'GST calculation is invalid. Please check the amounts.']);
         }
 
+        // Handle file removal/replacement
+        if ($request->has('remove_receipt')) {
+            $expense->clearMediaCollection('receipts');
+        }
+
         if ($request->hasFile('receipt')) {
             $expense->clearMediaCollection('receipts');
             $expense->addMedia($request->file('receipt'))->toMediaCollection('receipts');
@@ -356,56 +366,56 @@ class WorkingPaperDashboard extends Controller
         return $years;
     }
 
-        public function exportPdf(WorkingPaper $workingPaper)
-{
-    /*
-    |--------------------------------------------------------------------------
-    | 1. Load all related data
-    |--------------------------------------------------------------------------
-    | Eager-load relationships so Blade doesn't fire multiple queries
-    */
-    $workingPaper->load([
-        'user',
-        'reviewer',
-        'wageData',
-        'rentalProperties',
-        'incomeItems',
-        'expenseItems',
-    ]);
+    public function exportPdf(WorkingPaper $workingPaper)
+    {
+        /*
+        |--------------------------------------------------------------------------
+        | 1. Load all related data
+        |--------------------------------------------------------------------------
+        | Eager-load relationships so Blade doesn't fire multiple queries
+        */
+        $workingPaper->load([
+            'user',
+            'reviewer',
+            'wageData',
+            'rentalProperties',
+            'incomeItems',
+            'expenseItems',
+        ]);
 
-    /*
-    |--------------------------------------------------------------------------
-    | 2. Prepare data for the PDF view
-    |--------------------------------------------------------------------------
-    */
-    $expenses = $workingPaper->expenseItems ?? collect();
-    $grandTotal = $expenses->sum('amount');
+        /*
+        |--------------------------------------------------------------------------
+        | 2. Prepare data for the PDF view
+        |--------------------------------------------------------------------------
+        */
+        $expenses = $workingPaper->expenseItems ?? collect();
+        $grandTotal = $expenses->sum('amount');
 
-    /*
-    |--------------------------------------------------------------------------
-    | 3. Generate PDF from Blade
-    |--------------------------------------------------------------------------
-    */
-    $pdf = Pdf::loadView('client.pdf.working-paper', [
-        'workingPaper' => $workingPaper,
-        'expenses'     => $expenses,
-        'grandTotal'   => $grandTotal,
-    ]);
+        /*
+        |--------------------------------------------------------------------------
+        | 3. Generate PDF from Blade
+        |--------------------------------------------------------------------------
+        */
+        $pdf = Pdf::loadView('client.pdf.working-paper', [
+            'workingPaper' => $workingPaper,
+            'expenses'     => $expenses,
+            'grandTotal'   => $grandTotal,
+        ]);
 
-    /*
-    |--------------------------------------------------------------------------
-    | 4. Paper setup
-    |--------------------------------------------------------------------------
-    */
-    $pdf->setPaper('A4', 'portrait');
+        /*
+        |--------------------------------------------------------------------------
+        | 4. Paper setup
+        |--------------------------------------------------------------------------
+        */
+        $pdf->setPaper('A4', 'portrait');
 
-    /*
-    |--------------------------------------------------------------------------
-    | 5. Return download
-    |--------------------------------------------------------------------------
-    */
-    return $pdf->download('working-paper-' . $workingPaper->id . '.pdf');
-}
+        /*
+        |--------------------------------------------------------------------------
+        | 5. Return download
+        |--------------------------------------------------------------------------
+        */
+        return $pdf->download('working-paper-' . $workingPaper->id . '.pdf');
+    }
 
 
 }

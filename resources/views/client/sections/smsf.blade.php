@@ -81,8 +81,18 @@
                                                     </select>
                                                 </div>
                                                 <div class="md:col-span-2">
-                                                    <label class="block text-sm font-medium text-gray-700 mb-1">Upload Invoice (Optional)</label>
+                                                    <label class="block text-sm font-medium text-gray-700 mb-1">Invoice</label>
+                                                    @if($income->hasMedia('invoices'))
+                                                        <div class="mb-2 p-2 bg-gray-50 rounded border">
+                                                            <p class="text-xs text-gray-600 mb-2">Current: {{ $income->getFirstMedia('invoices')->file_name }}</p>
+                                                            <label class="inline-flex items-center">
+                                                                <input type="checkbox" name="remove_invoice" value="1" class="rounded border-gray-300">
+                                                                <span class="ml-2 text-sm text-red-600">Remove current invoice</span>
+                                                            </label>
+                                                        </div>
+                                                    @endif
                                                     <input type="file" name="invoice" accept=".pdf,.jpg,.jpeg,.png" class="w-full">
+                                                    <p class="text-xs text-gray-500 mt-1">Upload new file to replace existing (optional)</p>
                                                 </div>
                                                 <div class="md:col-span-2">
                                                     <label class="block text-sm font-medium text-gray-700 mb-1">Client Comment (Optional)</label>
@@ -283,8 +293,18 @@
                                                     </label>
                                                 </div>
                                                 <div class="md:col-span-2">
-                                                    <label class="block text-sm font-medium text-gray-700 mb-1">Upload Receipt (Optional)</label>
+                                                    <label class="block text-sm font-medium text-gray-700 mb-1">Receipt</label>
+                                                    @if($expense->hasMedia('receipts'))
+                                                        <div class="mb-2 p-2 bg-gray-50 rounded border">
+                                                            <p class="text-xs text-gray-600 mb-2">Current: {{ $expense->getFirstMedia('receipts')->file_name }}</p>
+                                                            <label class="inline-flex items-center">
+                                                                <input type="checkbox" name="remove_receipt" value="1" class="rounded border-gray-300">
+                                                                <span class="ml-2 text-sm text-red-600">Remove current receipt</span>
+                                                            </label>
+                                                        </div>
+                                                    @endif
                                                     <input type="file" name="receipt" accept=".pdf,.jpg,.jpeg,.png" class="w-full">
+                                                    <p class="text-xs text-gray-500 mt-1">Upload new file to replace existing</p>
                                                 </div>
                                                 <div class="md:col-span-2">
                                                     <label class="block text-sm font-medium text-gray-700 mb-1">Client Comment (Optional)</label>
