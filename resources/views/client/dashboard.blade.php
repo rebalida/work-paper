@@ -261,14 +261,29 @@
                                     </button>
                                 </form>
                             @else
-                                <div class="text-sm text-gray-500 italic">
-                                    @if($workingPaper->status === 'approved')
-                                        This working paper has been approved
-                                    @else
-                                        This working paper is under review
-                                    @endif
-                                </div>
-                            @endif
+<div class="flex flex-col gap-3">
+    <div class="text-sm text-gray-500 italic">
+        @if($workingPaper->status === 'approved')
+            This working paper has been approved
+        @else
+            This working paper is under review
+        @endif
+    </div>
+
+    <!-- Export PDF Button (only if approved) -->
+    @if($workingPaper->status === 'approved')
+        <a
+            href="{{ route('client.working-paper.export-pdf', $workingPaper) }}"
+            target="_blank"
+            class="inline-flex items-center justify-center px-5 py-2 bg-gray-800 hover:bg-gray-900 text-white rounded-md text-sm font-semibold w-fit"
+        >
+            Export as PDF
+        </a>
+    @endif
+</div>
+@endif
+
+
                         </div>
                     </div>
                 </div>

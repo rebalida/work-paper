@@ -93,6 +93,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Submit working paper
         Route::post('/working-paper/{workingPaper}/submit', [WorkingPaperDashboard::class, 'submit'])
             ->name('working-paper.submit');
+
+        // Export Working Paper as PDF
+        Route::get('/working-paper/{workingPaper}/export-pdf', [WorkingPaperDashboard::class, 'exportPdf'])
+        ->name('working-paper.export-pdf');    
     });
 
     // Admin Routes

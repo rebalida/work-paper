@@ -355,4 +355,57 @@ class WorkingPaperDashboard extends Controller
 
         return $years;
     }
+
+        public function exportPdf(WorkingPaper $workingPaper)
+{
+    /*
+    |--------------------------------------------------------------------------
+    | 1. Load all related data
+    |--------------------------------------------------------------------------
+    | Eager-load relationships so Blade doesn't fire multiple queries
+    */
+    $workingPaper->load([
+        'user',
+        'reviewer',
+        'wageData',
+        'rentalProperties',
+        'incomeItems',
+        'expenseItems',
+    ]);
+
+    /*
+    |--------------------------------------------------------------------------
+    | 2. Prepare data for the PDF view
+    |--------------------------------------------------------------------------
+    */
+    $expenses = $workingPaper->expenseItems ?? collect();
+    $grandTotal = $expenses->sum('amount');
+
+    /*
+    |--------------------------------------------------------------------------
+    | 3. Generate PDF from Blade
+    |--------------------------------------------------------------------------
+    */
+    $pdf = Pdf::loadView('pdf.working-paper', [
+        'workingPaper' => $workingPaper,
+        'expenses'     => $expenses,
+        'grandTotal'   => $grandTotal,
+    ]);
+
+    /*
+    |--------------------------------------------------------------------------
+    | 4. Paper setup
+    |--------------------------------------------------------------------------
+    */
+    $pdf->setPaper('A4', 'portrait');
+
+    /*
+    |--------------------------------------------------------------------------
+    | 5. Return download
+    |--------------------------------------------------------------------------
+    */
+    return $pdf->download('working-paper-' . $workingPaper->id . '.pdf');
+}
+
+
 }
