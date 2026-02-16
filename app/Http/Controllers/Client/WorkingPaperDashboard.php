@@ -386,7 +386,7 @@ class WorkingPaperDashboard extends Controller
     | 3. Generate PDF from Blade
     |--------------------------------------------------------------------------
     */
-    $pdf = Pdf::loadView('pdf.working-paper', [
+    $pdf = Pdf::loadView('client.pdf.working-paper', [
         'workingPaper' => $workingPaper,
         'expenses'     => $expenses,
         'grandTotal'   => $grandTotal,
