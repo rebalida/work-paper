@@ -27,7 +27,7 @@ class WorkingPaperDashboard extends Controller
         
         if ($selectedYear) {
             if (!preg_match('/^\d{4}-\d{4}$/', $selectedYear)) {
-                return redirect()->route('dashboard')->withErrors(['year' => 'Invalid financial year format']);
+                return redirect()->route('client.dashboard')->withErrors(['year' => 'Invalid financial year format']);
             }
             $financialYear = $selectedYear;
         } else {
@@ -99,6 +99,7 @@ class WorkingPaperDashboard extends Controller
         $wageData->update($validated);
 
         if ($request->hasFile('payg_summary')) {
+            $wageData->clearMediaCollection('payg_summary');
             $wageData->addMedia($request->file('payg_summary'))->toMediaCollection('payg_summary');
         }
 
@@ -164,6 +165,44 @@ class WorkingPaperDashboard extends Controller
     }
 
     /**
+     * Update income item
+     */
+    public function updateIncome(Request $request, IncomeItem $income)
+    {
+        $this->authorize('update', $income->workingPaper);
+
+        $validated = $request->validate([
+            'income_type' => 'nullable|string|max:255',
+            'description' => 'required|string',
+            'amount' => 'required|numeric|min:0',
+            'quarter' => 'nullable|in:all,q1,q2,q3,q4',
+            'client_comment' => 'nullable|string',
+            'invoice' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
+        ]);
+
+        $income->update($validated);
+
+        if ($request->hasFile('invoice')) {
+            $income->clearMediaCollection('invoices');
+            $income->addMedia($request->file('invoice'))->toMediaCollection('invoices');
+        }
+
+        return back()->with('success', 'Income item updated successfully');
+    }
+
+    /**
+     * Delete income item
+     */
+    public function deleteIncome(IncomeItem $income)
+    {
+        $this->authorize('update', $income->workingPaper);
+
+        $income->delete();
+
+        return back()->with('success', 'Income item deleted successfully');
+    }
+
+    /**
      * Add expense item
      */
     public function addExpense(Request $request, WorkingPaper $workingPaper)
@@ -199,23 +238,49 @@ class WorkingPaperDashboard extends Controller
         }
 
         if ($request->hasFile('receipt')) {
-            $expense->addMedia($request->file('receipt'))
-                ->toMediaCollection('receipts');
+            $expense->addMedia($request->file('receipt'))->toMediaCollection('receipts');
         }
 
         return back()->with('success', 'Expense item added successfully');
     }
 
     /**
-     * Delete income item
+     * Update expense item
      */
-    public function deleteIncome(IncomeItem $income)
+    public function updateExpense(Request $request, ExpenseItem $expense)
     {
-        $this->authorize('update', $income->workingPaper);
+        $this->authorize('update', $expense->workingPaper);
 
-        $income->delete();
+        $validated = $request->validate([
+            'field_type' => 'nullable|in:a,b,c',
+            'description' => 'required|string',
+            'amount_inc_gst' => 'required|numeric|min:0',
+            'gst_amount' => 'nullable|numeric|min:0',
+            'net_ex_gst' => 'nullable|numeric|min:0',
+            'quarter' => 'nullable|in:all,q1,q2,q3,q4',
+            'client_comment' => 'nullable|string',
+            'receipt' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
+        ]);
 
-        return back()->with('success', 'Income item deleted successfully');
+        // Auto-calculate GST if not provided
+        if (empty($validated['gst_amount']) || empty($validated['net_ex_gst'])) {
+            $validated['net_ex_gst'] = round($validated['amount_inc_gst'] / 1.1, 2);
+            $validated['gst_amount'] = round($validated['amount_inc_gst'] - $validated['net_ex_gst'], 2);
+        }
+
+        $expense->update($validated);
+
+        // Validate GST
+        if (!$expense->validateGst()) {
+            return back()->withErrors(['gst' => 'GST calculation is invalid. Please check the amounts.']);
+        }
+
+        if ($request->hasFile('receipt')) {
+            $expense->clearMediaCollection('receipts');
+            $expense->addMedia($request->file('receipt'))->toMediaCollection('receipts');
+        }
+
+        return back()->with('success', 'Expense item updated successfully');
     }
 
     /**

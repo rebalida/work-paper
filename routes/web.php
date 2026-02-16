@@ -77,12 +77,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Income items
         Route::post('/working-paper/{workingPaper}/income', [WorkingPaperDashboard::class, 'addIncome'])
             ->name('income.store');
+        Route::patch('/income/{income}', [WorkingPaperDashboard::class, 'updateIncome'])
+            ->name('income.update');
         Route::delete('/income/{income}', [WorkingPaperDashboard::class, 'deleteIncome'])
             ->name('income.destroy');
         
         // Expense items
         Route::post('/working-paper/{workingPaper}/expense', [WorkingPaperDashboard::class, 'addExpense'])
             ->name('expense.store');
+        Route::patch('/expense/{expense}', [WorkingPaperDashboard::class, 'updateExpense'])
+            ->name('expense.update');
         Route::delete('/expense/{expense}', [WorkingPaperDashboard::class, 'deleteExpense'])
             ->name('expense.destroy');
         
