@@ -11,6 +11,7 @@ use App\Models\WageData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class WorkingPaperDashboard extends Controller
 {
