@@ -5,3 +5,32 @@
 [x-cloak] {
     display: none !important;
 }
+
+@layer utilities {
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
+
+/* Smooth fade for x-show transitions */
+[x-cloak] {
+    display: none !important;
+}
+
+.transition-height {
+    transition: max-height 0.3s ease-out;
+}
+
+/* Modern Form Inputs */
+.form-input-modern {
+    @apply w-full rounded-lg border-gray-200 bg-gray-50 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all duration-200;
+}
+
+/* Card Hover Effects */
+.card-hover {
+    @apply transition-all duration-300 hover:shadow-md border border-transparent hover:border-indigo-100;
+}
