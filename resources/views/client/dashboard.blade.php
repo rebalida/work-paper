@@ -94,14 +94,7 @@
                                 <label class="relative flex flex-col items-center p-4 border rounded-xl cursor-pointer hover:bg-gray-50 transition-all duration-200" 
                                        :class="selectedTypes.includes('{{ $key }}') ? 'border-indigo-500 bg-indigo-50/30 ring-1 ring-indigo-500' : 'border-gray-200'">
                                     
-                                    <input 
-                                        type="checkbox" 
-                                        name="selected_types[]" 
-                                        value="{{ $key }}"
-                                        x-model="selectedTypes"
-                                        class="absolute top-3 right-3 h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                                        {{ !$workingPaper->canBeEditedByClient() ? 'disabled' : '' }}
-                                    >
+                                    <input type="checkbox" name="selected_types[]" value="{{ $key }}" x-model="selectedTypes" class="absolute top-3 right-3 h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" {{ !$workingPaper->canBeEditedByClient() ? 'disabled' : '' }}>
                                     
                                     <div class="w-10 h-10 mb-3 rounded-full flex items-center justify-center"
                                          :class="selectedTypes.includes('{{ $key }}') ? 'bg-indigo-100 text-indigo-600' : 'bg-gray-100 text-gray-400'">

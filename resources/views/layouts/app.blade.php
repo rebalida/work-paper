@@ -26,10 +26,7 @@
                 </button>
             </div>
 
-            <aside 
-                :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
-                class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 text-white transition-transform duration-300 ease-in-out md:relative md:translate-x-0 flex flex-col shadow-xl"
-            >
+            <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 text-white transition-transform duration-300 ease-in-out md:relative md:translate-x-0 flex flex-col shadow-xl">
                 <div class="p-6 border-b border-slate-800 hidden md:block">
                     <h1 class="text-2xl font-bold tracking-tight text-white">Working Paper</h1>
                     <p class="text-xs text-slate-400 mt-1">Data Capture System</p>

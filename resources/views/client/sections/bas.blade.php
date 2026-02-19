@@ -130,11 +130,7 @@
             <!-- Add Income Form -->
             @if($workingPaper->canBeEditedByClient())
                 <div x-data="{ showIncomeForm: false }">
-                    <button 
-                        @click="showIncomeForm = !showIncomeForm; editingIncomeId = null" 
-                        type="button"
-                        class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 mb-3"
-                    >
+                    <button @click="showIncomeForm = !showIncomeForm; editingIncomeId = null" type="button" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 mb-3">
                         + Add Income Line
                     </button>
 
@@ -349,11 +345,7 @@
             <!-- Add Expense Form -->
             @if($workingPaper->canBeEditedByClient())
                 <div x-data="{ showExpenseForm: false, autoCalculateGST: true, amountIncGst: 0 }">
-                    <button 
-                        @click="showExpenseForm = !showExpenseForm; editingExpenseId = null" 
-                        type="button"
-                        class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 mb-3"
-                    >
+                    <button @click="showExpenseForm = !showExpenseForm; editingExpenseId = null" type="button" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 mb-3">
                         + Add Expense Line
                     </button>
 

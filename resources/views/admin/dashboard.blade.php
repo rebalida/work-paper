@@ -103,13 +103,7 @@
 
                         <div>
                             <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Search Client</label>
-                            <input
-                                type="text"
-                                name="search"
-                                value="{{ $searchQuery }}"
-                                placeholder="Name or email..."
-                                class="block w-full rounded-lg border-gray-300 bg-gray-50 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 text-sm shadow-sm transition-all duration-200"
-                            >
+                            <input type="text" name="search" value="{{ $searchQuery }}" placeholder="Name or email..." class="block w-full rounded-lg border-gray-300 bg-gray-50 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 text-sm shadow-sm transition-all duration-200">
                         </div>
 
                         <div class="flex items-end gap-2">

@@ -45,14 +45,7 @@
                             <p class="text-xs font-medium text-gray-600">PAYG Summary</p>
                             <p class="text-sm text-gray-500">{{ $workingPaper->wageData->getMedia('payg_summary')->first()?->file_name ?? 'Document attached' }}</p>
                         </div>
-                        <button 
-                            @click="$dispatch('open-file-viewer', {
-                                url: '{{ route('media.view-wage', $workingPaper->wageData) }}',
-                                name: '{{ $workingPaper->wageData->getMedia('payg_summary')->first()?->file_name ?? 'PAYG Summary' }}'
-                            })"
-                            type="button"
-                            class="px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700"
-                        >
+                        <button @click="$dispatch('open-file-viewer', { url: '{{ route('media.view-wage', $workingPaper->wageData) }}', name: '{{ $workingPaper->wageData->getMedia('payg_summary')->first()?->file_name ?? 'PAYG Summary' }}' })" type="button" class="px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700">
                             View Document
                         </button>
                     </div>
@@ -63,11 +56,7 @@
         <!-- Form Section (Collapsible when data exists) -->
         <div x-data="{ showForm: {{ $workingPaper->wageData && ($workingPaper->wageData->salary_wages || $workingPaper->wageData->tax_withheld) ? 'false' : 'true' }} }">
             @if($workingPaper->wageData && ($workingPaper->wageData->salary_wages || $workingPaper->wageData->tax_withheld))
-                <button 
-                    @click="showForm = !showForm" 
-                    type="button"
-                    class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 mb-3"
-                >
+                <button @click="showForm = !showForm" type="button" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 mb-3">
                     <span x-show="!showForm">Edit Wage Data</span>
                     <span x-show="showForm">Cancel</span>
                 </button>
@@ -80,36 +69,17 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Salary/Wages</label>
-                            <input 
-                                type="number" 
-                                step="0.01" 
-                                name="salary_wages" 
-                                value="{{ $workingPaper->wageData->salary_wages ?? '' }}"
-                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" 
-                                placeholder="0.00"
-                            >
+                            <input type="number" step="0.01" name="salary_wages" value="{{ $workingPaper->wageData->salary_wages ?? '' }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="0.00">
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Tax Withheld</label>
-                            <input 
-                                type="number" 
-                                step="0.01" 
-                                name="tax_withheld" 
-                                value="{{ $workingPaper->wageData->tax_withheld ?? '' }}"
-                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" 
-                                placeholder="0.00"
-                            >
+                            <input type="number" step="0.01" name="tax_withheld" value="{{ $workingPaper->wageData->tax_withheld ?? '' }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="0.00">
                         </div>
 
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Other Employment Items</label>
-                            <textarea 
-                                name="other_employment_items" 
-                                rows="3" 
-                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                placeholder="Any additional employment-related information..."
-                            >{{ $workingPaper->wageData->other_employment_items ?? '' }}</textarea>
+                            <textarea name="other_employment_items" rows="3" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="Any additional employment-related information...">{{ $workingPaper->wageData->other_employment_items ?? '' }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">

@@ -7,11 +7,7 @@
         <!-- Add Property Form -->
         @if($workingPaper->canBeEditedByClient())
             <div x-data="{ showPropertyForm: false }" class="mb-6">
-                <button 
-                    @click="showPropertyForm = !showPropertyForm" 
-                    type="button" 
-                    class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-                >
+                <button @click="showPropertyForm = !showPropertyForm" type="button" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
                     + Add Property
                 </button>
 
@@ -188,11 +184,7 @@
                             <!-- Add Income Form -->
                             @if($workingPaper->canBeEditedByClient())
                                 <div x-data="{ showIncomeForm: false }">
-                                    <button 
-                                        @click="showIncomeForm = !showIncomeForm; editingIncomeId = null" 
-                                        type="button"
-                                        class="px-3 py-1.5 bg-green-600 text-white text-sm rounded hover:bg-green-700"
-                                    >
+                                    <button @click="showIncomeForm = !showIncomeForm; editingIncomeId = null" type="button" class="px-3 py-1.5 bg-green-600 text-white text-sm rounded hover:bg-green-700">
                                         + Add Income
                                     </button>
 
@@ -381,11 +373,7 @@
                             <!-- Add Expense Form -->
                             @if($workingPaper->canBeEditedByClient())
                                 <div x-data="{ showExpenseForm: false, autoCalculateGST: true, amountIncGst: 0 }">
-                                    <button 
-                                        @click="showExpenseForm = !showExpenseForm; editingExpenseId = null" 
-                                        type="button"
-                                        class="px-3 py-1.5 bg-red-600 text-white text-sm rounded hover:bg-red-700"
-                                    >
+                                    <button @click="showExpenseForm = !showExpenseForm; editingExpenseId = null" type="button" class="px-3 py-1.5 bg-red-600 text-white text-sm rounded hover:bg-red-700">
                                         + Add Expense
                                     </button>
 
