@@ -16,7 +16,7 @@
         
         @if (session('success'))
             <div class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 border border-green-100 shadow-sm" role="alert">
-                <svg class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                <x-heroicon-o-information-circle class="flex-shrink-0 w-5 h-5 mr-3" />
                 <span class="font-medium">{{ session('success') }}</span>
             </div>
         @endif
@@ -25,7 +25,7 @@
             <div class="bg-red-50 border border-red-200 rounded-xl p-6 shadow-sm">
                 <div class="flex gap-4">
                     <div class="p-3 bg-red-100 rounded-full h-fit text-red-600">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <x-heroicon-o-exclamation-circle class="w-6 h-6" />
                     </div>
                     <div class="flex-1">
                         <h3 class="text-lg font-bold text-red-900">Action Required: Revision Needed</h3>
@@ -40,14 +40,14 @@
 
         @if(in_array($workingPaper->status, ['submitted', 'resubmitted', 'approved']))
             <div class="bg-blue-50/50 border border-blue-100 rounded-xl p-6 flex items-center gap-4 shadow-sm">
-                 <div class="p-3 {{ $workingPaper->status === 'approved' ? 'bg-green-100 text-green-600' : 'bg-blue-100 text-blue-600' }} rounded-full">
+                <div class="p-3 {{ $workingPaper->status === 'approved' ? 'bg-green-100 text-green-600' : 'bg-blue-100 text-blue-600' }} rounded-full">
                     @if($workingPaper->status === 'approved')
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <x-heroicon-o-check class="w-6 h-6" />
                     @else
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <x-heroicon-o-clock class="w-6 h-6" />
                     @endif
-                 </div>
-                 <div>
+                </div>
+                <div>
                     <h3 class="text-lg font-bold text-gray-900">
                         @if($workingPaper->status === 'approved')
                             Approved & Finalized
@@ -58,7 +58,7 @@
                     <p class="text-sm text-gray-500">
                         Status updated: {{ $workingPaper->updated_at->diffForHumans() }}
                     </p>
-                 </div>
+                </div>
             </div>
         @endif
 
@@ -105,11 +105,23 @@
                                     
                                     <div class="w-10 h-10 mb-3 rounded-full flex items-center justify-center"
                                          :class="selectedTypes.includes('{{ $key }}') ? 'bg-indigo-100 text-indigo-600' : 'bg-gray-100 text-gray-400'">
-                                         @if($key == 'wage') <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                                         @elseif($key == 'rental') <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
-                                         @elseif($key == 'bas') <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                                         @else <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                                         @endif
+                                        @if($key == 'wage')
+                                            <x-heroicon-o-banknotes class="w-5 h-5" />
+                                        @elseif($key == 'rental')
+                                            <x-heroicon-o-home class="w-5 h-5" />
+                                        @elseif($key == 'bas')
+                                            <x-heroicon-o-document-text class="w-5 h-5" />
+                                        @elseif($key == 'sole_trader')
+                                            <x-heroicon-o-briefcase class="w-5 h-5" />
+                                        @elseif($key == 'ctax')
+                                            <x-heroicon-o-building-office class="w-5 h-5" />
+                                        @elseif($key == 'ttax')
+                                            <x-heroicon-o-receipt-percent class="w-5 h-5" />
+                                        @elseif($key == 'smsf')
+                                            <x-heroicon-o-chart-bar class="w-5 h-5" />
+                                        @else
+                                            <x-heroicon-o-chart-bar-square class="w-5 h-5" />
+                                        @endif
                                     </div>
                                     <span class="text-sm font-medium text-center" :class="selectedTypes.includes('{{ $key }}') ? 'text-indigo-900' : 'text-gray-600'">{{ $label }}</span>
                                 </label>
@@ -161,8 +173,8 @@
         <div class="sticky bottom-4 z-30" x-show="selectedTypes.length > 0" x-transition.opacity.duration.500ms>
             <div class="bg-slate-900 text-white rounded-xl shadow-2xl p-4 flex flex-col md:flex-row justify-between items-center gap-4 max-w-4xl mx-auto border border-slate-700">
                 <div class="flex items-center gap-3">
-                    <div class="hidden md:block p-2 bg-slate-800 rounded-lg">
-                        <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div class="hidden md:block p-2 bg-slate-800 rounded-lg text-indigo-400">
+                        <x-heroicon-o-check-circle class="w-6 h-6" />
                     </div>
                     <div>
                         <p class="font-bold text-lg">Ready to submit?</p>
