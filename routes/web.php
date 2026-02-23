@@ -56,7 +56,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('media.view-wage');
 
     // Client Routes
-    Route::prefix('client')->name('client.')->group(function () {
+    Route::prefix('client')->name('client.')->middleware('client')->group(function () {
         // Client dashboard
         Route::get('/dashboard', [WorkingPaperDashboard::class, 'index'])->name('dashboard');
         
