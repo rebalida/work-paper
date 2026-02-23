@@ -134,31 +134,31 @@
         </div>
 
         <div class="space-y-8">
-            <div x-show="selectedTypes.includes('wage')" x-cloak x-transition>
+            <div id="wage-section" x-show="selectedTypes.includes('wage')" x-cloak x-transition>
                 @include('client.sections.wage', ['workingPaper' => $workingPaper])
             </div>
 
-            <div x-show="selectedTypes.includes('rental')" x-cloak x-transition>
+            <div id="rental-section" x-show="selectedTypes.includes('rental')" x-cloak x-transition>
                 @include('client.sections.rental', ['workingPaper' => $workingPaper])
             </div>
 
-            <div x-show="selectedTypes.includes('sole_trader')" x-cloak x-transition>
+            <div id="sole-trader-section" x-show="selectedTypes.includes('sole_trader')" x-cloak x-transition>
                 @include('client.sections.sole-trader', ['workingPaper' => $workingPaper])
             </div>
 
-            <div x-show="selectedTypes.includes('bas')" x-cloak x-transition>
+            <div id="bas-section" x-show="selectedTypes.includes('bas')" x-cloak x-transition>
                 @include('client.sections.bas', ['workingPaper' => $workingPaper])
             </div>
 
-            <div x-show="selectedTypes.includes('ctax')" x-cloak x-transition>
+            <div id="ctax-section" x-show="selectedTypes.includes('ctax')" x-cloak x-transition>
                 @include('client.sections.ctax', ['workingPaper' => $workingPaper])
             </div>
 
-            <div x-show="selectedTypes.includes('ttax')" x-cloak x-transition>
+            <div id="ttax-section" x-show="selectedTypes.includes('ttax')" x-cloak x-transition>
                 @include('client.sections.ttax', ['workingPaper' => $workingPaper])
             </div>
 
-            <div x-show="selectedTypes.includes('smsf')" x-cloak x-transition>
+            <div id="smsf-section" x-show="selectedTypes.includes('smsf')" x-cloak x-transition>
                 @include('client.sections.smsf', ['workingPaper' => $workingPaper])
             </div>
         </div>
@@ -199,6 +199,41 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.location.hash) {
+                const hash = window.location.hash;
+                history.replaceState(null, null, ' ');
+                let attempts = 0;
+                const maxAttempts = 20;
+
+                const tryScroll = setInterval(function() {
+                    attempts++;
+                    const element = document.querySelector(hash);
+
+                    if (element) {
+                        const style = window.getComputedStyle(element);
+                        const isVisible = style.display !== 'none';
+
+                        if (isVisible || attempts >= maxAttempts) {
+                            clearInterval(tryScroll);
+
+                            const offset = 100;
+                            const top = element.getBoundingClientRect().top + window.scrollY - offset;
+
+                            window.scrollTo({
+                                top: top,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+
+                    if (attempts >= maxAttempts) {
+                        clearInterval(tryScroll);
+                    }
+                }, 100);
+            }
+        });
+
         function workingPaperApp(initialTypes) {
             return {
                 selectedTypes: Array.isArray(initialTypes) ? initialTypes : [],

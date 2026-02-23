@@ -1,7 +1,7 @@
 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
     <div class="p-6">
         <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-            Sole Trader Section
+            Trust Tax (TTax) Section
         </h3>
 
         <!-- Income Section -->

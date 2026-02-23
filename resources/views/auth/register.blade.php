@@ -2,7 +2,7 @@
 
     <div class="mb-8">
         <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Create an account</h2>
-        <p class="mt-1 text-sm text-slate-500">Get started with TaxPortal today</p>
+        <p class="mt-1 text-sm text-slate-500">Get started with Working Paper today</p>
     </div>
 
     <form method="POST" action="{{ route('register') }}" class="space-y-5">

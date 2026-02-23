@@ -102,7 +102,7 @@
                     <div class="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center">
                         <x-heroicon-o-document-chart-bar class="w-4 h-4 text-white" />
                     </div>
-                    <span class="text-slate-900 font-bold text-lg tracking-tight">TaxPortal</span>
+                    <span class="text-slate-900 font-bold text-lg tracking-tight">Working Paper</span>
                 </div>
 
                 <div class="w-full max-w-md">

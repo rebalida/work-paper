@@ -104,7 +104,7 @@ class WorkingPaperDashboard extends Controller
             $wageData->addMedia($request->file('payg_summary'))->toMediaCollection('payg_summary');
         }
 
-        return back()->with('success', 'Wage data saved successfully');
+        return back()->with('success', 'Wage data saved successfully')->withFragment('wage-section');
     }
 
     /**
@@ -122,7 +122,7 @@ class WorkingPaperDashboard extends Controller
 
         $property = $workingPaper->rentalProperties()->create($validated);
 
-        return back()->with('success', 'Rental property added successfully');
+        return back()->with('success', 'Rental property added successfully')->withFragment('rental-section');
     }
 
     /**
@@ -134,7 +134,7 @@ class WorkingPaperDashboard extends Controller
 
         $rentalProperty->delete();
 
-        return back()->with('success', 'Rental property deleted successfully');
+        return back()->with('success', 'Rental property deleted successfully')->withFragment('rental-section');
     }
 
     /**
@@ -162,7 +162,9 @@ class WorkingPaperDashboard extends Controller
             $income->addMedia($request->file('invoice'))->toMediaCollection('invoices');
         }
 
-        return back()->with('success', 'Income item added successfully');
+        $sectionFragment = str_replace('_', '-', $validated['section_type']) . '-section';
+
+        return back()->with('success', 'Income item added successfully')->withFragment($sectionFragment);
     }
 
     /**
@@ -193,7 +195,9 @@ class WorkingPaperDashboard extends Controller
             $income->addMedia($request->file('invoice'))->toMediaCollection('invoices');
         }
 
-        return back()->with('success', 'Income item updated successfully');
+        $sectionFragment = str_replace('_', '-', $income->section_type) . '-section';
+
+        return back()->with('success', 'Income item updated successfully')->withFragment($sectionFragment);
     }
 
     /**
@@ -203,9 +207,11 @@ class WorkingPaperDashboard extends Controller
     {
         $this->authorize('update', $income->workingPaper);
 
+        $sectionFragment = str_replace('_', '-', $income->section_type) . '-section';
+
         $income->delete();
 
-        return back()->with('success', 'Income item deleted successfully');
+        return back()->with('success', 'Income item deleted successfully')->withFragment($sectionFragment);
     }
 
     /**
@@ -247,7 +253,9 @@ class WorkingPaperDashboard extends Controller
             $expense->addMedia($request->file('receipt'))->toMediaCollection('receipts');
         }
 
-        return back()->with('success', 'Expense item added successfully');
+        $sectionFragment = str_replace('_', '-', $validated['section_type']) . '-section';
+
+        return back()->with('success', 'Expense item added successfully')->withFragment($sectionFragment);
     }
 
     /**
@@ -291,7 +299,9 @@ class WorkingPaperDashboard extends Controller
             $expense->addMedia($request->file('receipt'))->toMediaCollection('receipts');
         }
 
-        return back()->with('success', 'Expense item updated successfully');
+        $sectionFragment = str_replace('_', '-', $expense->section_type) . '-section';
+
+        return back()->with('success', 'Expense item updated successfully')->withFragment($sectionFragment);
     }
 
     /**
@@ -301,9 +311,11 @@ class WorkingPaperDashboard extends Controller
     {
         $this->authorize('update', $expense->workingPaper);
 
+        $sectionFragment = str_replace('_', '-', $expense->section_type) . '-section';
+
         $expense->delete();
 
-        return back()->with('success', 'Expense item deleted successfully');
+        return back()->with('success', 'Expense item deleted successfully')->withFragment($sectionFragment);
     }
 
     /**
